@@ -48,6 +48,49 @@ Kaggle. https://www.kaggle.com/datasets/mohammedaminejebbar/malicious-prompt-det
 
 ---
 
+## 🔧 Requirements & Installation
+
+### Prerequisites
+
+- **Python**: 3.8 or higher
+- **pip**: Package manager
+
+### Dependencies
+
+```
+numpy>=1.21.0
+pandas>=1.3.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
+scikit-learn>=1.0.0
+scipy>=1.7.0
+statsmodels>=0.13.0
+nltk>=3.8.0
+jupyter>=1.0.0
+ipykernel>=6.0.0
+```
+
+### Installation
+
+1. **Clone the repository**:
+```bash
+git clone https://github.com/yourusername/prompt-injection-detection.git
+cd prompt-injection-detection
+```
+
+2. **Install dependencies**:
+```bash
+pip install -r requirements.txt
+```
+
+3. **Download NLTK data** (automated in notebook):
+```python
+import nltk
+nltk.download('punkt_tab')
+```
+
+---
+
 ## 🎯 Approach
 
 ### 1. Feature Engineering (19 Features)
@@ -116,114 +159,42 @@ Trained and evaluated 4 classification algorithms:
 
 ## 🏆 Key Results
 
-### Best Model: Random Forest
+### Best Model: Gradient Boosting
 
 | Metric | Score |
 |--------|-------|
-| **Recall** | **89.04%** |
-| **Precision** | **98.42%** |
-| **F1-Score** | **93.50%** |
-| **ROC-AUC** | **96.59%** |
+| **Recall** | **89.57%** |
+| **Precision** | **97.31%** |
+| **F1-Score** | **93.28%** |
+| **ROC-AUC** | **96.18%** |
 
 ### Model Comparison
 
 | Rank | Model | Recall | Precision | F1-Score | ROC-AUC |
 |------|-------|--------|-----------|----------|---------|
-| 1 | **Random Forest** | 89.04% | 98.42% | 93.50% | 96.59% |
-| 2 | Gradient Boosting | 89.57% | 97.31% | 93.28% | 96.18% |
+| 1 | **Gradient Boosting** | 89.57% | 97.31% | 93.28% | 96.18% |
+| 2 | Random Forest | 89.04% | 98.42% | 93.50% | 96.59% |
 | 3 | SVM (RBF) | 88.68% | 97.72% | 92.98% | 95.48% |
 | 4 | Logistic Regression | 81.62% | 89.07% | 85.18% | 92.09% |
 
 ### Key Insights
 
-**Why Random Forest Performed Best**:
-- **High Precision (98.42%)**: Very few false alarms - only 1.58% of safe prompts incorrectly flagged
-- **Strong Recall (89.04%)**: Catches 89% of malicious prompts, missing only 11%
-- **Excellent ROC-AUC (96.59%)**: Strong discriminative power across all thresholds
-- **Feature Diversity**: Leverages all 9 selected features effectively without overfitting
+**Why Gradient Boosting Performed Best**:
+- **Highest Recall (89.57%)**: Catches nearly 90% of malicious prompts - best detection rate among all models
+- **Strong Precision (97.31%)**: Very few false alarms - only 2.69% of safe prompts incorrectly flagged
+- **Excellent F1-Score (93.28%)**: Best balance between precision and recall
+- **Sequential Learning**: Builds trees iteratively, correcting errors from previous trees for improved accuracy
 
 **Security Implications**:
-- **False Negative Rate: 10.96%** - About 11% of attacks slip through (room for improvement)
-- **False Positive Rate: 1.58%** - Minimal disruption to legitimate users
-- **Practical Trade-off**: High precision reduces user friction while maintaining strong attack detection
+- **False Negative Rate: 10.43%** - About 10% of attacks slip through (lower than other models)
+- **False Positive Rate: 2.69%** - Minimal disruption to legitimate users
+- **Practical Trade-off**: Prioritizes recall (catching attacks) while maintaining acceptable precision
+- **Best for Security**: Highest recall makes it optimal for security-critical applications where missing attacks is costlier than false alarms
 
 **Model Blind Spot**:
 - Missed attacks tend to have **shorter word lengths** and **lower feature complexity**
 - Suggests attackers may evade detection with concise, simple malicious prompts
 - Future work: Add features targeting terse injection techniques
-
----
-
-## 📁 Project Structure
-
-```
-prompt-injection/
-├── data/
-│   ├── raw/
-│   │   └── MPDD.csv                    # Original dataset
-│   └── processed/
-│       └── cleaned_data.csv             # Cleaned dataset
-├── notebooks/
-│   └── final_project_streamlined.ipynb  # ⭐ MAIN PROJECT NOTEBOOK
-├── README.md                            # Project documentation
-└── requirements.txt                     # Python dependencies
-```
-
-> **Note**: This project uses a **single notebook** (`final_project_streamlined.ipynb`) containing the complete analysis pipeline from data cleaning through model evaluation.
-
-### Notebook Sections (final_project_streamlined.ipynb)
-
-The notebook is organized into 6 comprehensive sections:
-
-1. **Data Cleaning and EDA** - Load dataset, remove duplicates, validate data quality
-2. **Feature Engineering** - Create 19 security-focused features for injection detection
-3. **Feature Selection & Optimization** - Cross-validation to select top 9 features
-4. **Feature Scaling** - Standardize features using StandardScaler for model training
-5. **Model Training and Evaluation** - Train 4 classifiers and compare performance
-6. **Model Performance Visualizations** - Confusion matrices and comparative analysis
-
----
-
-## 🔧 Requirements & Installation
-
-### Prerequisites
-
-- **Python**: 3.8 or higher
-- **pip**: Package manager
-
-### Dependencies
-
-```
-numpy>=1.21.0
-pandas>=1.3.0
-matplotlib>=3.4.0
-seaborn>=0.11.0
-scikit-learn>=1.0.0
-scipy>=1.7.0
-statsmodels>=0.13.0
-nltk>=3.8.0
-jupyter>=1.0.0
-ipykernel>=6.0.0
-```
-
-### Installation
-
-1. **Clone the repository**:
-```bash
-git clone https://github.com/yourusername/prompt-injection-detection.git
-cd prompt-injection-detection
-```
-
-2. **Install dependencies**:
-```bash
-pip install -r requirements.txt
-```
-
-3. **Download NLTK data** (automated in notebook):
-```python
-import nltk
-nltk.download('punkt_tab')
-```
 
 ---
 
