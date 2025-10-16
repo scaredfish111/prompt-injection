@@ -74,8 +74,8 @@ ipykernel>=6.0.0
 
 1. **Clone the repository**:
 ```bash
-git clone https://github.com/yourusername/prompt-injection-detection.git
-cd prompt-injection-detection
+git clone https://github.com/yourusername/prompt-injection.git
+cd prompt-injection
 ```
 
 2. **Install dependencies**:
